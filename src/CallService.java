@@ -33,7 +33,7 @@ public class CallService {
     public List<Call> readAllFilesWithLimitAndSort() {
         return callReaderWriter.readAllFiles().stream()
                 .flatMap(
-                        fileCalls -> fileCalls.stream().sorted().limit(100)
+                        fileCalls -> fileCalls.stream().sorted().limit(10)
                 ).sorted().collect(Collectors.toList());
     }
 }
