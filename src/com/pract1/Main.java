@@ -1,5 +1,7 @@
-import entities.Call;
-import services.CallReaderWriter;
+package com.pract1;
+
+import com.pract1.entities.Call;
+import com.pract1.services.CallReaderWriter;
 
 import java.io.IOException;
 import java.time.LocalDate;

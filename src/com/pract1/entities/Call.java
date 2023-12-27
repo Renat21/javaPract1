@@ -1,4 +1,4 @@
-package entities;
+package com.pract1.entities;
 
 import java.time.Duration;
 import java.time.Instant;

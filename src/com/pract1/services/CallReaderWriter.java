@@ -1,6 +1,6 @@
-package services;
+package com.pract1.services;
 
-import entities.Call;
+import com.pract1.entities.Call;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
