@@ -42,7 +42,7 @@ public final class Call{
             callEndTime = LocalDateTime.ofInstant(
                     Instant.ofEpochSecond(Long.parseLong(callInfo[1])),
                     ZoneId.systemDefault());
-        } catch (DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("Ошибка парсинга даты и времени: " + e.getMessage());
             throw e;
         }
