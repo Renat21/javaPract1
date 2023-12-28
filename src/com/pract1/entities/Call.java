@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Сущность звонка из колл-центра
  */
-public final class Call{
+public class Call{
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
 
