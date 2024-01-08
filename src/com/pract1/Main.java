@@ -11,18 +11,16 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    private static CallReaderWriter callReaderWriter;
-
     private static final Comparator<Call> callComparator =
             Comparator.<Call, LocalDate>comparing(call -> call.getCallTime().toLocalDate())
                     .thenComparing(Call::getCallDuration).reversed();
 
     public static void main(String[] args) throws IOException {
 
-        callReaderWriter = new CallReaderWriter("logs/", "finalFile/");
+        CallReaderWriter callReaderWriter = new CallReaderWriter("data/pract1/logs/", "data/pract1/finalFile/");
 
         // Получаем список всех звонков
-        List<Call> callList = readAllFilesWithLimitAndSort();
+        List<Call> callList = readAllFilesWithLimitAndSort(callReaderWriter);
 
         // Записываем результат в файл
         callReaderWriter.writeFile(callList);
@@ -35,7 +33,7 @@ public class Main {
      *
      * @return общий список звонков
      */
-    public static List<Call> readAllFilesWithLimitAndSort() throws IOException {
+    public static List<Call> readAllFilesWithLimitAndSort(CallReaderWriter callReaderWriter) throws IOException {
         return callReaderWriter.readAllFiles().stream()
                 .flatMap(
                         fileCalls -> fileCalls.stream().sorted(callComparator).limit(10)

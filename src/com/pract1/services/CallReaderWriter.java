@@ -77,11 +77,9 @@ public class CallReaderWriter {
      */
     public void writeFile(List<Call> callList) throws IOException {
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(outputDirectory + "final.txt"))) {
-            bufferedWriter.write(
-                    callList.stream()
-                            .map(Call::toString)
-                            .collect(Collectors.joining("\n"))
-            );
+            for (Call call: callList){
+                bufferedWriter.write(call.toString() + "\n");
+            }
         } catch (IOException e) {
             System.out.println("Ошибка ввода/вывода: " + e.getMessage());
             throw e;
