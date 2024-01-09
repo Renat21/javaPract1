@@ -1,45 +1,33 @@
 package com.pract2.enitites;
 
+/**
+ * Сущность продукта
+ */
 public class Product {
-    private String id;
+    private final String id;
 
-    private String name;
+    private final String name;
 
-    private String description;
+    private final String description;
 
-    private Double weight;
+    private final Double weight;
 
-    private Long cost;
+    private final Long cost;
+
+    public Product(String id, String name, String description, Double weight, Long cost) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+        this.cost = cost;
+    }
 
     public String getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Long getCost() {
         return cost;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public void setCost(Long cost) {
-        this.cost = cost;
-    }
 }

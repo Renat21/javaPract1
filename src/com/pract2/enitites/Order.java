@@ -3,39 +3,31 @@ package com.pract2.enitites;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Сущность заказа
+ */
 public class Order {
 
-    private String id;
+    private final String id;
 
-    private String userId;
+    private final String userId;
 
-    private LocalDateTime dateCreated;
+    private final LocalDateTime dateCreated;
 
-    private List<Product> products;
+    private final List<Product> products;
 
-    public Order(){};
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
+    public Order(String id, String userId, LocalDateTime dateCreated, List<Product> products) {
+        this.id = id;
+        this.userId = userId;
+        this.dateCreated = dateCreated;
+        this.products = products;
     }
 
     public List<Product> getProducts() {
         return products;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 }

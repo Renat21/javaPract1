@@ -12,12 +12,21 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для работы с заказами
+ */
 public class OrderService {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM.yyyy");
 
+    /**
+     * Сервис для чтение заказов из файла
+     */
     private final OrdersInputServiceImpl ordersInputService;
 
+    /**
+     * Сервис для вывода
+     */
     private final OutputService outputService;
 
     public OrderService(OrdersInputServiceImpl ordersInputService, OutputService outputService) {
@@ -25,8 +34,11 @@ public class OrderService {
         this.outputService = outputService;
     }
 
+    /**
+     * Метод группирующий все заказы по их дате
+     */
     public Map<String, List<Product>> findOrdersByMonth() throws IOException {
-        return Objects.requireNonNull(ordersInputService).readDefaultFile().stream()
+        return Objects.requireNonNull(ordersInputService).readFile().stream()
                 .collect(Collectors.groupingBy(order -> order.getDateCreated().format(formatter)))
                 .entrySet().stream()
                 .collect(HashMap::new,
@@ -36,6 +48,10 @@ public class OrderService {
                         HashMap::putAll);
     }
 
+    /**
+     * Метод сохранящий результат в файл в формате : номер с годом (в формате "07.2022"),
+     * количество проданных товаров, общая стоимость проданных товаров
+     */
     public void createAndSaveResultToFile() throws IOException {
         Map<String, List<Product>> ordersPerMonth = findOrdersByMonth();
         List<String> resultLine = ordersPerMonth.entrySet().stream()

@@ -7,11 +7,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface InputService<T> {
 
-    default List<T> readFile(String inputDirectoryFile) throws IOException {
+/**
+ * Абстрактный класс для реализации чтения из файлов
+ */
+public abstract class InputService<T> {
+
+    /**
+     * Путь к файлу с его именем
+     */
+    protected String fileName;
+
+    /**
+     * Реализация чтения из файлов превращая все в список определенных сущностей
+     */
+    public List<T> readFile() throws IOException {
         List<T> productList = new ArrayList<>();
-        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(inputDirectoryFile))) {
+        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(fileName))) {
 
             // Первая строка просто для информации
             bufferedReader.readLine();
@@ -27,7 +39,10 @@ public interface InputService<T> {
         return productList;
     }
 
-    T convertStringToObject(String line) throws IOException;
-
-    List<T> readDefaultFile() throws IOException;
+    /**
+     * Метод конверирующий строку в определенный обьект
+     */
+    public T convertStringToObject(String line) throws IOException {
+        return null;
+    }
 }

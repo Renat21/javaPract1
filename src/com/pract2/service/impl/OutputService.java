@@ -6,9 +6,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Сервис записи в файл
+ */
 public class OutputService {
 
-    private final String outputDirectoryFile;
+    /**
+     * Путь к директории записи с названием файла
+     */
+    private String outputDirectoryFile;
 
     public OutputService(String outputDirectoryFile) {
         this.outputDirectoryFile = outputDirectoryFile;
