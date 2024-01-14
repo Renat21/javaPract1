@@ -1,0 +1,4 @@
+﻿Ivanov Ivan;20.02.2024;101
+Petrov Petr Petrovich;20.12.2023;2000
+Sidorov Sidor Sidorovich;20.02.2021;300
+Sidorov Petr Sidorovich;01.02.2020;3500
