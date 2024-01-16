@@ -24,7 +24,12 @@ public class ProductService {
      * Метод возвращающий список обьектов продкутов по их Id
      */
     public List<Product> findProductsByIds(List<String> productIds) throws IOException {
-        return Objects.requireNonNull(productsInputService).readFile().stream()
+        
+        if (Objects.isNull(productList)){
+            productList = Objects.requireNonNull(productsInputService).readFile();
+        }
+
+        return productList.stream()
                 .filter(product -> productIds.contains(product.getId())).collect(Collectors.toList());
     }
 }
