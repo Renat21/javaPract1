@@ -2,10 +2,13 @@ package com.pract2.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,7 +24,7 @@ public abstract class InputService<T> {
     /**
      * Реализация чтения из файлов превращая все в список определенных сущностей
      */
-    public List<T> readFile() throws IOException {
+    public List<T> readFileToList(){
         List<T> productList = new ArrayList<>();
         try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(fileName))) {
 
@@ -34,7 +37,7 @@ public abstract class InputService<T> {
             }
         } catch (IOException e) {
             System.out.println("File reading problems: " + e.getMessage());
-            throw e;
+            throw new UncheckedIOException(e);
         }
         return productList;
     }
@@ -42,7 +45,5 @@ public abstract class InputService<T> {
     /**
      * Метод конверирующий строку в определенный обьект
      */
-    public T convertStringToObject(String line) throws IOException {
-        return null;
-    }
+    abstract protected T convertStringToObject(String line);
 }

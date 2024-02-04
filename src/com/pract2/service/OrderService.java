@@ -1,15 +1,10 @@
 package com.pract2.service;
 
+import com.pract2.enitites.Order;
 import com.pract2.enitites.Product;
-import com.pract2.service.impl.OrdersInputServiceImpl;
-import com.pract2.service.impl.OutputService;
-
-import java.io.IOException;
+import com.pract2.enitites.ResultDTO;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -22,45 +17,29 @@ public class OrderService {
     /**
      * Сервис для чтение заказов из файла
      */
-    private final OrdersInputServiceImpl ordersInputService;
+    private final List<Order> orderList;
 
-    /**
-     * Сервис для вывода
-     */
-    private final OutputService outputService;
-
-    public OrderService(OrdersInputServiceImpl ordersInputService, OutputService outputService) {
-        this.ordersInputService = ordersInputService;
-        this.outputService = outputService;
+    public OrderService(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     /**
-     * Метод группирующий все заказы по их дате
+     * Метод группирующий все заказы по их дате и формирующий их в список DTO для вывода
      */
-    public Map<String, List<Product>> findOrdersByMonth() throws IOException {
-        return Objects.requireNonNull(ordersInputService).readFile().stream()
+    public List<ResultDTO> findOrdersByMonth() {
+        return Objects.requireNonNull(orderList).stream()
                 .collect(Collectors.groupingBy(order -> order.getDateCreated().format(formatter)))
                 .entrySet().stream()
-                .collect(HashMap::new,
-                        (map, entry) -> map.put(entry.getKey(),
-                                entry.getValue().stream().flatMap(order -> order.getProducts().stream())
-                                        .collect(Collectors.toList())),
-                        HashMap::putAll);
-    }
+                .collect(ArrayList::new,
+                        (list, entry) -> {
+                                // Список продуктов за определенный месяц
+                                List<Product> value = entry.getValue().stream().flatMap(order -> order.getProducts().stream())
+                                    .collect(Collectors.toList());
 
-    /**
-     * Метод сохранящий результат в файл в формате : номер с годом (в формате "07.2022"),
-     * количество проданных товаров, общая стоимость проданных товаров
-     */
-    public void createAndSaveResultToFile() throws IOException {
-        Map<String, List<Product>> ordersPerMonth = findOrdersByMonth();
-        List<String> resultLine = ordersPerMonth.entrySet().stream()
-                .map(entry ->
-                        entry.getKey()
-                                + " " + entry.getValue().size()
-                                + " " + entry.getValue().stream().mapToLong(Product::getCost).sum()
-                ).collect(Collectors.toList());
-
-        Objects.requireNonNull(outputService).writeFile(resultLine);
+                                // Формурую DTO для вывода (количество за месяц, месяц, сумма за месяц)
+                                list.add(new ResultDTO(value.size(), entry.getKey(), value.stream()
+                                        .mapToLong(Product::getCost).sum()));
+                            },
+                        ArrayList::addAll);
     }
 }
