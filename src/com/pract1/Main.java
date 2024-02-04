@@ -3,7 +3,6 @@ package com.pract1;
 import com.pract1.entities.Call;
 import com.pract1.services.CallReaderWriter;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +14,7 @@ public class Main {
             Comparator.<Call, LocalDate>comparing(call -> call.getCallTime().toLocalDate())
                     .thenComparing(Call::getCallDuration).reversed();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         CallReaderWriter callReaderWriter = new CallReaderWriter("data/pract1/logs/", "data/pract1/finalFile/");
 
@@ -33,7 +32,7 @@ public class Main {
      *
      * @return общий список звонков
      */
-    public static List<Call> readAllFilesWithLimitAndSort(CallReaderWriter callReaderWriter) throws IOException {
+    public static List<Call> readAllFilesWithLimitAndSort(CallReaderWriter callReaderWriter){
         return callReaderWriter.readAllFiles().stream()
                 .flatMap(
                         fileCalls -> fileCalls.stream().sorted(callComparator).limit(10)
