@@ -16,6 +16,6 @@ public class OutputDto {
 
     @Override
     public String toString() {
-        return date + " - " + String.join(",", employees);
+        return date + " - " + String.join(", ", employees);
     }
 }

@@ -35,9 +35,8 @@ public class StatisticService {
                     employees.remove(teaBrewing.getName());
                 }
             });
-            if (!employees.isEmpty()) {
-                outputDto.add(new OutputDto(day, employees));
-            }
+
+            outputDto.add(new OutputDto(day, employees));
         });
 
         return outputDto;
