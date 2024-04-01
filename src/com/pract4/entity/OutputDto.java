@@ -3,16 +3,7 @@ package com.pract4.entity;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class OutputDto {
-
-    private final LocalDate date;
-
-    private final Set<String> employees;
-
-    public OutputDto(LocalDate date, Set<String> employees) {
-        this.date = date;
-        this.employees = employees;
-    }
+public record OutputDto(LocalDate date, Set<String> employees) {
 
     @Override
     public String toString() {

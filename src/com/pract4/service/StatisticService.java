@@ -21,18 +21,18 @@ public class StatisticService {
         List<OutputDto> outputDto = new ArrayList<>();
         Map<LocalDate, List<TeaBrewing>> teaBrewingByDay =
                 teaBrewingList.stream().collect(Collectors.groupingBy(
-                        teaBrewing -> teaBrewing.getFrom().toLocalDate()));
+                        teaBrewing -> teaBrewing.from().toLocalDate()));
 
         teaBrewingByDay.forEach((day, dayTeas) -> {
-            Set<String> employees = dayTeas.stream().map(TeaBrewing::getName).collect(Collectors.toSet());
+            Set<String> employees = dayTeas.stream().map(TeaBrewing::name).collect(Collectors.toSet());
 
             dayTeas.forEach(teaBrewing -> {
-                final long brewingTime = ChronoUnit.SECONDS.between(teaBrewing.getFrom(), teaBrewing.getTo());
-                final TeaType teaType = teaBrewing.getTea().getTeaType();
+                final long brewingTime = ChronoUnit.SECONDS.between(teaBrewing.from(), teaBrewing.to());
+                final TeaType teaType = teaBrewing.tea().teaType();
 
-                if (!(teaType.getTimeTo() >= brewingTime && brewingTime >= teaType.getTimeFrom() &&
-                        teaType.getTempTo() >= teaBrewing.getTemp() && teaBrewing.getTemp() >= teaType.getTempFrom())){
-                    employees.remove(teaBrewing.getName());
+                if (!(teaType.timeTo() >= brewingTime && brewingTime >= teaType.timeFrom() &&
+                        teaType.tempTo() >= teaBrewing.temp() && teaBrewing.temp() >= teaType.tempFrom())){
+                    employees.remove(teaBrewing.name());
                 }
             });
 

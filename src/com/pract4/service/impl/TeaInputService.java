@@ -6,6 +6,7 @@ import com.pract4.entity.TeaType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TeaInputService extends InputService<Tea> {
@@ -19,8 +20,8 @@ public class TeaInputService extends InputService<Tea> {
 
     public Map<Long, Tea> readFileToMap(){
         List<Tea> teaList = readFile();
-        return teaList.stream().collect(Collectors.toMap(Tea::getId,
-                tea -> tea));
+        return teaList.stream().collect(Collectors.toMap(Tea::id,
+                Function.identity()));
     }
 
     @Override

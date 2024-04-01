@@ -15,7 +15,7 @@ public class TeaTypeInputService extends InputService<TeaType> {
 
     public Map<Long, TeaType> readFileToMap(){
         List<TeaType> teaTypes = readFile();
-        return teaTypes.stream().collect(Collectors.toMap(TeaType::getId,
+        return teaTypes.stream().collect(Collectors.toMap(TeaType::id,
                 teaType -> teaType));
     }
 
